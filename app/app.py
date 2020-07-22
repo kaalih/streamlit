@@ -14,6 +14,7 @@ def load_data():
 
 mpg = load_data()
 
+st.header('Base dataframe')
 st.dataframe(mpg, width=1200)
 
 # Sidebar Input
@@ -27,6 +28,8 @@ selected_cylinders = st.sidebar.multiselect('Number of Cylinders:', list_cylinde
 filter_origins = list_origins if len(selected_origins) == 0 else selected_origins
 filter_cylinders = list_cylinders if len(selected_cylinders) == 0 else selected_cylinders
 
+st.header('Dataframe with filters applied')
+
 # Prepare dataframe
 f = (mpg.origin.isin(filter_origins) & mpg.cylinders.isin(filter_cylinders))
 st.dataframe(mpg[f])
@@ -36,4 +39,7 @@ g = alt.Chart(mpg[f], width=700).mark_point().encode(
     y='mpg'
 )
 
+st.header('Visualization with Altair')
+
 st.altair_chart(g)
+
